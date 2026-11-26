@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Elke pagina staat in src/site/pages/<slug>/ als main.html + page.css + page.js + meta.json
+const metas = import.meta.glob('../site/pages/*/meta.json', { eager: true, import: 'default' });
+const mains = import.meta.glob('../site/pages/*/main.html', { eager: true, query: '?raw', import: 'default' });
+const csss = import.meta.glob('../site/pages/*/page.css', { eager: true, query: '?raw', import: 'default' });
+const jss = import.meta.glob('../site/pages/*/page.js', { eager: true, query: '?raw', import: 'default' });
+
+export function getStaticPaths() {
+  const metas = import.meta.glob('../site/pages/*/meta.json', { eager: true, import: 'default' });
+  return Object.entries(metas).map(([file, meta]: [string, any]) => {
+    const dir = file.replace(/\/meta\.json$/, '');
+    const slug = meta.path.replace(/^\/|\/$/g, '') || undefined;
+    return { params: { slug }, props: { dir } };
+  });
+}
+
+const { dir } = Astro.props as { dir: string };
+const meta = metas[`${dir}/meta.json`] as any;
+const base = import.meta.env.BASE_URL;
+// Paden in de content zijn al omgezet naar de base path van GitHub Pages
+const main = mains[`${dir}/main.html`] as string;
+---
+<Base
+  title={meta.title}
+  description={meta.description}
+  bodyClass={meta.bodyClass}
+  path={meta.path}
+  pageCss={csss[`${dir}/page.css`] as string}
+  pageJs={jss[`${dir}/page.js`] as string}
+  ext={meta.ext}
+>
+  <Fragment set:html={main} />
+</Base>

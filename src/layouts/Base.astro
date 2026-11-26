@@ -1,0 +1,57 @@
+---
+import header from '../site/shared/header.html?raw';
+import footer from '../site/shared/footer.html?raw';
+import extras from '../site/shared/extras.html?raw';
+import siteJs from '../site/shared/site.js?raw';
+import globalCss from '../site/shared/global.css?raw';
+
+interface Props {
+  title: string;
+  description: string;
+  bodyClass: string;
+  path: string;
+  pageCss: string;
+  pageJs: string;
+  ext: string[];
+}
+const { title, description, bodyClass, path, pageCss, pageJs, ext } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const fonts =
+  'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Caveat:wght@400;500;600;700&display=swap';
+---
+<!doctype html>
+<html lang="nl-NL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- Interne snelheidsdemo: niet indexeren, canonical naar de echte site -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={`https://www.daar-om.nl${path}`} />
+    <link rel="icon" href={`${base}wp-content/uploads/2026/05/cropped-favicon-roze-32x32.png`} sizes="32x32" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={fonts} />
+    <style is:inline set:html={globalCss}></style>
+    <style is:inline set:html={pageCss}></style>
+  </head>
+  <body class={bodyClass}>
+    <div id="page-container">
+      <div id="et-boc" class="et-boc">
+        <Fragment set:html={header} />
+        <div id="et-main-area">
+          <slot />
+          <Fragment set:html={footer} />
+        </div>
+      </div>
+    </div>
+    <Fragment set:html={extras} />
+    <script is:inline src={`${base}js/runtime.js`} defer></script>
+    {ext.some((s) => s.includes('swiper')) && (
+      <script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
+    )}
+    <script is:inline set:html={siteJs}></script>
+    {pageJs && <script is:inline set:html={pageJs}></script>}
+  </body>
+</html>

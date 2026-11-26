@@ -1,0 +1,9 @@
+{
+ "path": "/onze-diensten/website/website-support/",
+ "title": "Website support - daar-om.nl",
+ "description": "Technische updates, aanpassingen en verbeteringen aan je site. Met abonnement, strippenkaart of op nacalculatie. Plan een gesprek.",
+ "bodyClass": "wp-singular page-template-default page page-id-515163 page-child parent-pageid-514029 wp-theme-Divi et-tb-has-template et-tb-has-header et-tb-has-footer jps-theme-Divi et_pb_button_helper_class et_cover_background et_pb_gutter linux et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
+ "ext": [
+  "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+ ]
+}

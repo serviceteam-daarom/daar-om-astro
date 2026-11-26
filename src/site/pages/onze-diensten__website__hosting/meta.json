@@ -1,0 +1,9 @@
+{
+ "path": "/onze-diensten/website/hosting/",
+ "title": "Hosting - daar-om.nl",
+ "description": "Je website laten hosten op ons eigen platform, met dagelijkse back-ups en SSL. Bekijk de tarieven en plan een adviesgesprek.",
+ "bodyClass": "wp-singular page-template-default page page-id-515148 page-child parent-pageid-514029 wp-theme-Divi et-tb-has-template et-tb-has-header et-tb-has-footer jps-theme-Divi et_pb_button_helper_class et_cover_background et_pb_gutter et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
+ "ext": [
+  "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+ ]
+}

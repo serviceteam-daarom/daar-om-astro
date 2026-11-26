@@ -1,0 +1,9 @@
+{
+ "path": "/",
+ "title": "daar-om.nl - Digital Agency",
+ "description": "Daar-om.nl is jouw partner voor online marketing. Wij laten ambitieuze MKB-bedrijven groeien.",
+ "bodyClass": "home wp-singular page-template-default page page-id-665 wp-theme-Divi et-tb-has-template et-tb-has-header et-tb-has-footer jps-theme-Divi et_pb_button_helper_class et_cover_background et_pb_gutter et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
+ "ext": [
+  "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+ ]
+}
