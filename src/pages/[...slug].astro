@@ -5,7 +5,7 @@ import Base from '../layouts/Base.astro';
 const metas = import.meta.glob('../site/pages/*/meta.json', { eager: true, import: 'default' });
 const mains = import.meta.glob('../site/pages/*/main.html', { eager: true, query: '?raw', import: 'default' });
 const csss = import.meta.glob('../site/pages/*/page.css', { eager: true, query: '?raw', import: 'default' });
-const jss = import.meta.glob('../site/pages/*/page.js', { eager: true, query: '?raw', import: 'default' });
+const crits = import.meta.glob('../site/pages/*/critical.css', { eager: true, query: '?raw', import: 'default' });
 
 export function getStaticPaths() {
   const metas = import.meta.glob('../site/pages/*/meta.json', { eager: true, import: 'default' });
@@ -27,8 +27,12 @@ const main = mains[`${dir}/main.html`] as string;
   description={meta.description}
   bodyClass={meta.bodyClass}
   path={meta.path}
-  pageCss={csss[`${dir}/page.css`] as string}
-  pageJs={jss[`${dir}/page.js`] as string}
+  pageCss={(crits[`${dir}/critical.css`] ?? csss[`${dir}/page.css`]) as string}
+  fullCss={crits[`${dir}/critical.css`] ? `${base}css/p/${dir.split('/').pop()}.css` : null}
+  pageJs={meta.pageJs}
+  lcp={meta.lcp}
+  lcpMobile={meta.lcpMobile}
+  lcpCss={meta.lcpCss}
   ext={meta.ext}
 >
   <Fragment set:html={main} />

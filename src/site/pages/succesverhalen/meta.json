@@ -3,5 +3,9 @@
  "title": "Succesverhalen - daar-om.nl",
  "description": "200+ bedrijven gingen je voor. We laten graag zien hoe dat is gegaan. Klaar om te groeien? Neem contact op!",
  "bodyClass": "wp-singular page-template-default page page-id-2015 wp-theme-Divi et-tb-has-template et-tb-has-header et-tb-has-footer jps-theme-Divi et_pb_button_helper_class et_cover_background et_pb_gutter osx et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
- "ext": []
+ "ext": [],
+ "lcp": "/daar-om-astro/wp-content/uploads/2026/05/half-beeldmerk.svg",
+ "lcpCss": null,
+ "lcpMobile": null,
+ "pageJs": "/daar-om-astro/js/p/succesverhalen.js"
 }

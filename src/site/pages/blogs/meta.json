@@ -3,5 +3,9 @@
  "title": "Blogs - daar-om.nl",
  "description": "We delen onze kennis graag. Lees de blogs over het laatste marketing nieuws.",
  "bodyClass": "wp-singular page-template-default page page-id-1515 wp-theme-Divi et-tb-has-template et-tb-has-header et-tb-has-footer jps-theme-Divi et_pb_button_helper_class et_cover_background et_pb_gutter et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
- "ext": []
+ "ext": [],
+ "lcp": "/daar-om-astro/wp-content/uploads/2026/05/half-beeldmerk.svg",
+ "lcpCss": null,
+ "lcpMobile": null,
+ "pageJs": "/daar-om-astro/js/p/blogs.js"
 }

@@ -10,3 +10,7 @@
 .demo-embed-wrap.is-loaded .demo-embed{pointer-events:auto;opacity:1}
 .demo-embed-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(27,33,59,.85);color:#f4f6fb;padding:10px 18px;border-radius:30px;font-size:14px}
 .demo-embed-wrap.is-loaded .demo-embed-label{display:none}
+/* Header direct vast positioneren (deed de header-JS pas na laden: layout shift) */
+.hm-wrap{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:999999!important}
+html body{padding-top:120px}
+@media (max-width:1080px){html body{padding-top:64px}}

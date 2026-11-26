@@ -3,5 +3,9 @@
  "title": "Waar wij goed in zijn - daar-om.nl",
  "description": "Wij laten jouw bedrijf opvallen in de digitale menigte, en dat doen we met onze online marketing diensten. Lees hier waar wij goed in zijn.",
  "bodyClass": "wp-singular page-template-default page page-id-1400 page-parent wp-theme-Divi et-tb-has-template et-tb-has-header et-tb-has-footer jps-theme-Divi et_pb_button_helper_class et_cover_background et_pb_gutter windows et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
- "ext": []
+ "ext": [],
+ "lcp": "/daar-om-astro/wp-content/uploads/2026/04/martini-toren.jpg",
+ "lcpCss": "@media (max-width:767px){div.et_pb_section_0.et_pb_section_0{background-image:linear-gradient(#1b213bd9 0%,#1b213b59 100%),url(/daar-om-astro/wp-content/uploads/2026/04/martini-toren-m.webp)!important}}",
+ "lcpMobile": "/daar-om-astro/wp-content/uploads/2026/04/martini-toren-m.webp",
+ "pageJs": "/daar-om-astro/js/p/onze-diensten.js"
 }

@@ -5,5 +5,9 @@
  "bodyClass": "wp-singular page-template-default page page-id-1288 page-child parent-pageid-1064 wp-theme-Divi et-tb-has-template et-tb-has-header et-tb-has-footer jps-theme-Divi et_pb_button_helper_class et_cover_background et_pb_gutter et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
  "ext": [
   "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
- ]
+ ],
+ "lcp": "/daar-om-astro/wp-content/uploads/2026/08/daar-om-Kennisevent-8-1.webp",
+ "lcpCss": "@media (max-width:767px){div.et_pb_section_1.et_pb_section_1{background-image:linear-gradient(#1b213bd9 0%,#1b213b59 100%),url(/daar-om-astro/wp-content/uploads/2026/08/daar-om-Kennisevent-8-1-m.webp)!important}}",
+ "lcpMobile": "/daar-om-astro/wp-content/uploads/2026/08/daar-om-Kennisevent-8-1-m.webp",
+ "pageJs": "/daar-om-astro/js/p/onze-diensten__creatie__klantcases.js"
 }

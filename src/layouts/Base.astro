@@ -2,8 +2,9 @@
 import header from '../site/shared/header.html?raw';
 import footer from '../site/shared/footer.html?raw';
 import extras from '../site/shared/extras.html?raw';
-import siteJs from '../site/shared/site.js?raw';
 import globalCss from '../site/shared/global.css?raw';
+import fontsCss from '../site/shared/fonts.css?raw';
+import preloadFonts from '../site/shared/preload-fonts.json';
 
 interface Props {
   title: string;
@@ -11,13 +12,18 @@ interface Props {
   bodyClass: string;
   path: string;
   pageCss: string;
-  pageJs: string;
+  fullCss: string | null;
+  pageJs: string | null;
+  lcp: string | null;
+  lcpMobile: string | null;
+  lcpCss: string | null;
   ext: string[];
 }
-const { title, description, bodyClass, path, pageCss, pageJs, ext } = Astro.props;
+const { title, description, bodyClass, path, pageCss, fullCss, pageJs, lcp, lcpMobile, lcpCss, ext } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const fonts =
-  'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Caveat:wght@400;500;600;700&display=swap';
+const favicon = `${base}wp-content/uploads/2026/05/cropped-favicon-roze`;
+const swiper = ext.some((s) => s.includes('swiper'));
+const scripts = [`${base}js/runtime.js`, ...(swiper ? [`${base}js/swiper-bundle.min.js`] : []), `${base}js/site.js`, ...(pageJs ? [pageJs] : [])];
 ---
 <!doctype html>
 <html lang="nl-NL">
@@ -29,12 +35,22 @@ const fonts =
     <!-- Interne snelheidsdemo: niet indexeren, canonical naar de echte site -->
     <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href={`https://www.daar-om.nl${path}`} />
-    <link rel="icon" href={`${base}wp-content/uploads/2026/05/cropped-favicon-roze-32x32.png`} sizes="32x32" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href={fonts} />
+    <link rel="icon" href={`${favicon}-32x32.png`} sizes="32x32" />
+    <link rel="icon" href={`${favicon}-192x192.png`} sizes="192x192" />
+    <link rel="apple-touch-icon" href={`${favicon}-180x180.png`} />
+    {lcp && lcpMobile && <link rel="preload" as="image" href={lcpMobile} fetchpriority="high" media="(max-width: 767px)" />}
+    {lcp && <link rel="preload" as="image" href={lcp} fetchpriority="high" media={lcpMobile ? '(min-width: 768px)' : undefined} />}
+    {preloadFonts.map((f) => <link rel="preload" as="font" type="font/woff2" href={f} crossorigin />)}
+    <style is:inline set:html={fontsCss}></style>
     <style is:inline set:html={globalCss}></style>
-    <style is:inline set:html={pageCss}></style>
+    <style is:inline set:html={pageCss + (lcpCss || '')}></style>
+    {fullCss && (
+      <>
+        <!-- Kritieke CSS staat inline, de rest laadt zonder het renderen te blokkeren -->
+        <link rel="stylesheet" href={fullCss} media="print" onload="this.media='all'" />
+        <noscript><link rel="stylesheet" href={fullCss} /></noscript>
+      </>
+    )}
   </head>
   <body class={bodyClass}>
     <div id="page-container">
@@ -47,11 +63,26 @@ const fonts =
       </div>
     </div>
     <Fragment set:html={extras} />
-    <script is:inline src={`${base}js/runtime.js`} defer></script>
-    {ext.some((s) => s.includes('swiper')) && (
-      <script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
-    )}
-    <script is:inline set:html={siteJs}></script>
-    {pageJs && <script is:inline set:html={pageJs}></script>}
+    <!-- Scripts pas na de eerste paint laden: niets in het kritieke pad -->
+    <script is:inline define:vars={{ scripts }}>
+      (function () {
+        var d = document, w = window, dAdd = d.addEventListener, wAdd = w.addEventListener;
+        function run() {
+          // Scripts die op DOMContentLoaded/load wachten, direct laten draaien
+          d.addEventListener = function (t, f, o) { if (t === 'DOMContentLoaded') { setTimeout(f, 0); return; } return dAdd.call(d, t, f, o); };
+          w.addEventListener = function (t, f, o) { if (t === 'load' && d.readyState === 'complete') { setTimeout(f, 0); return; } return wAdd.call(w, t, f, o); };
+          var i = 0;
+          (function next() {
+            if (i >= scripts.length) return;
+            var e = d.createElement('script');
+            e.src = scripts[i++];
+            e.onload = e.onerror = next;
+            d.body.appendChild(e);
+          })();
+        }
+        function afterPaint() { requestAnimationFrame(function () { setTimeout(run, 0); }); }
+        if (d.readyState === 'loading') dAdd.call(d, 'DOMContentLoaded', afterPaint); else afterPaint();
+      })();
+    </script>
   </body>
 </html>
