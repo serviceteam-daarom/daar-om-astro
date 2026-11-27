@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+const base = import.meta.env.BASE_URL;
+const google = 'https://www.google.com/search?q=daar-om+groningen+reviews';
+---
+<span class="rating">
+  <strong>4,7</strong><span class="sterren" aria-label="4,7 van 5 sterren">
+    <Icon name="star" /><Icon name="star" /><Icon name="star" /><Icon name="star" /><Icon name="star-half-stroke" />
+  </span>(180+ <img class="g" src={`${base}wp-content/uploads/2026/04/elementen-13.svg`} alt="Google" width="16" height="16" /> <a href={google} target="_blank" rel="noopener" aria-label="Opent in nieuw tabblad">reviews</a>)
+</span>

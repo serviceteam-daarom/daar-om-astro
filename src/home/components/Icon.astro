@@ -1,0 +1,8 @@
+---
+// Inline SVG-icoon (Font Awesome Free), geen iconfont nodig
+import icons from '../parts/icons.json';
+interface Props { name: keyof typeof icons; class?: string }
+const { name, class: cls } = Astro.props;
+const icon = icons[name];
+---
+<svg class={cls} viewBox={icon.viewBox} fill="currentColor" aria-hidden="true" set:html={icon.path} />

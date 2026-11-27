@@ -9,7 +9,8 @@ const crits = import.meta.glob('../site/pages/*/critical.css', { eager: true, qu
 
 export function getStaticPaths() {
   const metas = import.meta.glob('../site/pages/*/meta.json', { eager: true, import: 'default' });
-  return Object.entries(metas).map(([file, meta]: [string, any]) => {
+  // De homepage heeft een eigen, herbouwde pagina (src/pages/index.astro)
+  return Object.entries(metas).filter(([, meta]: [string, any]) => meta.path !== '/').map(([file, meta]: [string, any]) => {
     const dir = file.replace(/\/meta\.json$/, '');
     const slug = meta.path.replace(/^\/|\/$/g, '') || undefined;
     return { params: { slug }, props: { dir } };

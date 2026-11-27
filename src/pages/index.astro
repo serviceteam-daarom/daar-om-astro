@@ -1,0 +1,184 @@
+---
+// Homepage, opnieuw opgebouwd als Astro-pagina (geen Divi-markup of Divi-CSS)
+import HomeLayout from '../home/HomeLayout.astro';
+import Btn from '../home/components/Btn.astro';
+import Rating from '../home/components/Rating.astro';
+import Icon from '../home/components/Icon.astro';
+import logos from '../home/parts/logos.html?raw';
+import cases from '../home/parts/cases.html?raw';
+import werkwijze from '../home/parts/werkwijze.html?raw';
+import reviews from '../home/parts/reviews.html?raw';
+import blogs from '../home/parts/blogs.html?raw';
+import team from '../home/parts/team.json';
+
+const base = import.meta.env.BASE_URL;
+const up = (p: string) => `${base}wp-content/uploads/${p}`;
+
+const diensten = [
+  { titel: 'Strategie', tekst: 'Groei is het doel, maar strategie bepaalt hoe we daar komen.', href: '/onze-diensten/strategie/', icoon: '2026/04/elementen-04.png' },
+  { titel: 'Branding', tekst: 'Val op in de digitale menigte met een sterk en opvallend merk.', href: '/onze-diensten/branding/', icoon: '2026/04/elementen-05.png' },
+  { titel: 'Vindbaarheid', tekst: 'Wij zorgen ervoor dat jouw bedrijf vindbaar is waar je potentiële klant zoekt.', href: '/onze-diensten/vindbaarheid/', icoon: '2026/04/elementen-06.png' },
+  { titel: 'Performance', tekst: 'Wij zetten je bedrijf neer met campagnes die echt presteren.', href: '/onze-diensten/performance/', icoon: '2026/04/elementen-07.png' },
+  { titel: 'Content creatie', tekst: 'Sterke en efficiënte uitvoering van de strategie, onder andere met content creatie in beeld en tekst.', href: '/onze-diensten/creatie/', icoon: '2026/04/elementen-08.png' },
+  { titel: 'Website', tekst: 'De basis van al je online activiteiten. Wij bouwen converterende en professionele websites.', href: '/onze-diensten/website/', icoon: '2026/04/elementen-09.png' },
+];
+
+// Team in willekeurige volgorde per build; twee keer achter elkaar voor een naadloze loop
+const uniek = team.filter((t, i, a) => a.findIndex((x) => x.src === t.src) === i);
+const geschud = [...uniek].sort(() => Math.random() - 0.5);
+---
+<HomeLayout title="daar-om.nl - Digital Agency" description="Daar-om.nl is jouw partner voor online marketing. Wij laten ambitieuze MKB-bedrijven groeien.">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <p class="rating-regel"><Rating /></p>
+        <h1>Jouw vooruitzicht op <br /><span class="groot">digitale groei<span class="dot-roze">.</span></span></h1>
+        <p class="hero__lead">Wij laten ambitieuze MKB-bedrijven opvallen in de digitale menigte.</p>
+        <div class="hero__knoppen">
+          <Btn href="/afspraak-inplannen/" variant="oranje" arrow={false}>Contact opnemen</Btn>
+          <Btn href="#meer">Meer weten</Btn>
+        </div>
+      </div>
+    </div>
+    <div class="hero__logos"><Fragment set:html={logos} /></div>
+  </section>
+
+  <!-- Wij kijken verder -->
+  <section class="intro" id="meer">
+    <div class="wrap">
+      <div class="intro__rij">
+        <div class="intro__tekst">
+          <h2>Wij kijken <strong>verder</strong></h2>
+          <p>Vanaf de straat kun je de volgende stap zien, maar vanaf de Martinitoren zie je de volledige route. Zo kijken wij ook naar jouw marketing.</p>
+          <p>Wij helpen het ambitieuze MKB vooruit als full-service digital agency uit Groningen. Strategie, creatie en uitvoering hebben wij onder één dak. We zijn praktisch, eerlijk en to-the-point.</p>
+          <h3>Vooruitzicht op jouw groei</h3>
+          <p>Als digital agency helpen wij al <strong>13+ jaar</strong> ambitieuze MKB-bedrijven groeien. Met een mix van creativiteit, data en innovatie blijven we ons ontwikkelen met onze ogen op het vooruitzicht: de groei van jouw bedrijf.</p>
+          <Btn href="/over-ons/">Ontdek meer over ons</Btn>
+        </div>
+        <div class="intro__swirl"><img src={up('2026/05/over-ons-swirl.webp')} alt="Martinitoren met daar-om swirl" width="577" height="1103" loading="lazy" /></div>
+        <div class="intro__foto"><img src={up('2026/09/daar-om-fotoshoot-MT-50.webp')} alt="Rémon en Tim van daar-om" width="1400" height="934" loading="lazy" /></div>
+      </div>
+      <div class="intro__bekijk">
+        <img src={up('2026/04/elementen-01.svg')} alt="" width="60" height="61" loading="lazy" />
+        <p>Bekijk hoe wij hen hebben laten groeien</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Succesverhalen -->
+  <section class="cases" aria-label="Succesverhalen"><Fragment set:html={cases} /></section>
+
+  <!-- Diensten -->
+  <section class="diensten">
+    <div class="wrap diensten__rij">
+      <div class="diensten__intro">
+        <h2>Hoe wij <strong>jou laten opvallen</strong> in de digitale menigte</h2>
+        <Btn href="/afspraak-inplannen/" variant="oranje">Plan een afspraak in</Btn>
+        <div class="geinteresseerd">
+          <img src={up('2026/04/elementen-03.svg')} alt="" width="60" height="61" loading="lazy" />
+          <span>Geïnteresseerd?</span>
+        </div>
+      </div>
+      {[diensten.slice(0, 3), diensten.slice(3)].map((kolom, k) => (
+        <div class={`diensten__kolom${k ? ' diensten__kolom--rechts' : ''}`}>
+          {kolom.map((d) => (
+            <article class="dienst" style={`--icoon:url(${up(d.icoon)})`}>
+              <h3>{d.titel}</h3>
+              <p>{d.tekst}</p>
+              <Btn href={d.href} class="pijl-roze">Lees meer</Btn>
+            </article>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Ben jij klaar -->
+  <section class="cta-klaar">
+    <div class="cta-klaar__inner">
+      <div class="cta-klaar__tekst">
+        <h2>Ben jij klaar om<br />samen te <strong>groeien</strong>?</h2>
+        <p>Als jouw bedrijf klaar is voor de volgende stap, zet die dan samen met ons.</p>
+        <div class="knoppen-wrapper">
+          <a class="knop knop-primair" href="https://www.daar-om.nl/afspraak-inplannen/">Plan een afspraak in
+            <svg aria-hidden="true" class="pijl" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a class="knop knop-secundair" href={`${base}onze-groeiformule/`}>Meer over onze aanpak</a>
+        </div>
+      </div>
+    </div>
+    <div class="cta-klaar__toren"><img src={up('2026/04/elementen-11.svg')} alt="" width="227" height="800" loading="lazy" /></div>
+  </section>
+
+  <!-- Groeiformule -->
+  <section class="werkwijze-sectie">
+    <div class="wrap">
+      <h2>De <strong>groeiformule</strong> van <strong>daar-om</strong><span class="dot-oranje">.</span></h2>
+      <div class="volgende-stap">
+        <img src={up('2026/05/pijl-oranje-werkwijze-cxo.png')} alt="" width="60" height="27" loading="lazy" />
+        <p>De volgende stap!</p>
+      </div>
+      <Fragment set:html={werkwijze} />
+      <Btn href="/onze-groeiformule/">Bekijk onze gehele werkwijze</Btn>
+    </div>
+  </section>
+
+  <!-- Groeiscan -->
+  <section class="groeiscan">
+    <div class="wrap">
+      <div class="groeiscan__kaart">
+        <img class="groeiscan__foto" src={up('2026/04/IMG_2157.webp')} srcset={`${up('2026/04/IMG_2157-480x320.webp')} 480w, ${up('2026/04/IMG_2157-980x654.webp')} 980w`} sizes="(max-width: 767px) 90vw, 364px" alt="Online aanwezigheid op een telefoon" width="364" height="540" loading="lazy" />
+        <div class="groeiscan__tekst">
+          <h2>Weten hoe het met <strong>jouw online aanwezigheid</strong> staat<span class="dot-blauw">?</span></h2>
+          <p>We kijken graag met je mee. Vraag de scan aan en krijg advies over de belangrijkste punten in jouw online aanwezigheid: wat goed gaat, wat beter kan en wat wij voor jouw bedrijf kunnen betekenen.</p>
+          <Btn href="/groeiscan/" variant="blauw" arrow={false}>Ontvang onze gratis groeiscan</Btn>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews-sectie">
+    <h2>Onze klanten <strong>aan het woord</strong></h2>
+    <Fragment set:html={reviews} />
+    <p class="rating--blok">
+      Beoordeeld met een <strong>4,7</strong><span class="sterren" aria-label="4,7 van 5 sterren"><Icon name="star" /><Icon name="star" /><Icon name="star" /><Icon name="star" /><Icon name="star-half-stroke" /></span><br />
+      <small>op basis van 180+ <img class="g" src={up('2026/04/elementen-13.svg')} alt="Google" width="16" height="16" loading="lazy" /> <a href="https://www.google.com/search?q=daar-om+groningen+reviews" target="_blank" rel="noopener">Google reviews</a></small>
+    </p>
+  </section>
+
+  <!-- Team -->
+  <section class="team">
+    <h2><strong>Wij</strong> staan voor je klaar<span class="dot-oranje">.</span></h2>
+    <div class="team__marquee">
+      <div class="team__track" style={`--n:${geschud.length}`}>
+        {[...geschud, ...geschud].map((t, i) => (
+          <div class="team__foto" aria-hidden={i >= geschud.length ? 'true' : undefined}>
+            <img src={t.src} srcset={t.srcset} sizes="(max-width: 767px) 40vw, (max-width: 980px) 27vw, 18vw" alt={i < geschud.length ? t.alt : ''} width={t.w} height={t.h} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <div class="wrap vacatures-hint">
+    <img src={up('2026/04/elementen-03.svg')} alt="" width="60" height="61" loading="lazy" />
+    <div><strong>Wil je hier tussenstaan?</strong>Bekijk <a href={`${base}werken-bij/`}>onze vacatures</a> en solliciteer!</div>
+  </div>
+
+  <!-- Blogs -->
+  <section class="blogs-sectie">
+    <div class="wrap">
+      <div class="blogs-sectie__kop">
+        <div>
+          <h2>Marketing <strong>inzichten</strong> &amp; <strong>trends</strong><span class="dot-lichtblauw">.</span></h2>
+          <p>We delen onze kennis graag. Lees de blogs over het allerlaatste marketing nieuws.</p>
+        </div>
+        <Btn href="/blogs/">Bekijk al onze blogs</Btn>
+      </div>
+      <Fragment set:html={blogs} />
+      <div class="blogs-sectie__mobiel"><Btn href="/blogs/">Bekijk al onze blogs</Btn></div>
+    </div>
+  </section>
+</HomeLayout>

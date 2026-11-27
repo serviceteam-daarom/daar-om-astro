@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import Rating from './Rating.astro';
+const base = import.meta.env.BASE_URL;
+---
+<footer>
+  <section class="nieuwsbrief" aria-labelledby="nb-titel">
+    <div class="nieuwsbrief__kaart">
+      <div class="nieuwsbrief__tekst">
+        <h2 id="nb-titel">Schrijf je in voor de <strong>nieuwsbrief</strong><span class="dot-roze">.</span></h2>
+        <p>Op de hoogte blijven van het laatste nieuws over online marketing, leadkwaliteit, branding, digitale groei en meer? Meld je aan voor de nieuwsbrief</p>
+      </div>
+      <form class="nieuwsbrief__form fnp-form" data-demo-form action="#">
+        <label class="sr-only" for="nb-mail">E-mailadres</label>
+        <input id="nb-mail" type="email" placeholder="info@bedrijfsnaam.nl" autocomplete="email" required />
+        <button type="submit" aria-label="Aanmelden"><span>Aanmelden</span><Icon name="arrow-right" /></button>
+      </form>
+    </div>
+  </section>
+  <div class="footer">
+    <div class="wrap">
+      <div class="footer__rij">
+        <div>
+          <img class="footer__logo" src={`${base}wp-content/uploads/2026/04/elementen-16.svg`} alt="daar-om.nl digital agency" width="300" height="67" loading="lazy" />
+          <p>Jouw partner voor online marketing, gericht op groei met slimme strategie, sterke creatie en datagedreven keuzes.</p>
+        </div>
+        <div>
+          <h3>Adres<span class="dot-oranje">.</span></h3>
+          <p><a href="https://maps.app.goo.gl/oc83zNAf1CHECc1K8" target="_blank" rel="noopener">Schweitzerlaan 12,<br />9728 NP Groningen</a></p>
+          <ul class="socials">
+            <li><a href="https://www.facebook.com/DaarOnlineMedia" target="_blank" rel="noopener" aria-label="Facebook"><Icon name="facebook" /></a></li>
+            <li><a href="https://www.instagram.com/daar_om.nl/" target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" /></a></li>
+            <li><a href="https://www.linkedin.com/company/daar-online-media/" target="_blank" rel="noopener" aria-label="LinkedIn"><Icon name="linkedin" /></a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contactgegevens<span class="dot-oranje">.</span></h3>
+          <p><a href="mailto:info@daar-om.nl">info@daar-om.nl</a></p>
+          <a class="footer__tel" href="tel:0505290555">050 529 0555</a>
+        </div>
+      </div>
+      <div class="footer__onder">
+        <p>
+          <a href="https://www.daar-om.nl/algemene-voorwaarden/">Algemene voorwaarden</a><span class="sep">|</span><a href="https://www.daar-om.nl/privacyverklaring/">Privacyverklaring</a><span class="sep">|</span><a href="https://www.daar-om.nl/disclaimer/">Disclaimer</a>
+        </p>
+        <p><Rating /></p>
+      </div>
+    </div>
+  </div>
+</footer>

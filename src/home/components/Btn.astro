@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+interface Props { href: string; variant?: 'oranje' | 'blauw' | 'link'; arrow?: boolean; class?: string }
+const { href, variant = 'link', arrow = true, class: cls = '' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+// Interne links van de demo krijgen de base path; overige pagina's gaan naar de live site
+const inScope = ['/', '/over-ons/', '/afspraak-inplannen/', '/onze-groeiformule/', '/groeiscan/', '/blogs/', '/contact/', '/succesverhalen/', '/werken-bij/', '/onze-specialisten/', '/stagelopen/'];
+const url = href.startsWith('/') && (inScope.includes(href) || href.startsWith('/onze-diensten/')) && href !== '/afspraak-inplannen/'
+  ? base + href.slice(1)
+  : href.startsWith('/') ? `https://www.daar-om.nl${href}` : href;
+const classes = ['btn', variant === 'link' ? 'btn--link' : `btn--fill btn--${variant}`, arrow && variant !== 'link' ? 'has-icon' : '', cls].filter(Boolean).join(' ');
+---
+<a class={classes} href={url}><slot />{arrow && <Icon name="arrow-right" />}</a>

@@ -4,6 +4,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const list = JSON.parse(fs.readFileSync(new URL('./assets.json', import.meta.url)));
+// Assets van de herbouwde homepage
+const homeAssets = new URL('../src/home/parts/assets.json', import.meta.url);
+if (fs.existsSync(homeAssets)) for (const a of JSON.parse(fs.readFileSync(homeAssets))) if (!list.includes(a)) list.push(a);
 const ORIGIN = 'https://www.daar-om.nl';
 let sharp = null;
 try { sharp = (await import('sharp')).default; } catch { console.warn('sharp niet beschikbaar, geen compressie'); }
@@ -47,7 +50,7 @@ if (sharp) for (const p of variants) {
   const src = path.join('public', decodeURIComponent(p));
   const dest = src.replace(/\.(webp|jpe?g|png)$/i, '-m.webp');
   if (!fs.existsSync(src) || fs.existsSync(dest)) continue;
-  await sharp(src).resize({ width: 828, withoutEnlargement: true }).webp({ quality: 62, effort: 5 }).toFile(dest);
+  await sharp(src).resize({ width: 828, withoutEnlargement: true }).webp({ quality: 50, effort: 6 }).toFile(dest);
   made++;
 }
 console.log(`mobiele varianten: ${made} gemaakt`);
